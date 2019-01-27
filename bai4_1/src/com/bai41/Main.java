@@ -32,5 +32,7 @@ public class Main {
         mrHoang.printDetail();
         mrSon.printDetail();
         mrA.printDetail();
+
+        System.out.println("Year of birth"+mrA.getYearOfBirth());
     }
 }

@@ -1,12 +1,14 @@
 package com.bai41;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Person {
     //Define properties;
     String name;
     String email;
     Integer age;
+    //Integer yearOfBirth;//Ko can
     ArrayList<String> skills;
     Integer loginAttempts;
     static Integer baseSalary;
@@ -28,6 +30,11 @@ public class Person {
     }
     public void login(){
         this.loginAttempts = this.loginAttempts + 1;
+    }
+    public Integer getYearOfBirth() {
+        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        System.out.println("Current year is : "+currentYear);
+        return currentYear - this.age;
     }
     /*
     Person(String name,Integer age){
