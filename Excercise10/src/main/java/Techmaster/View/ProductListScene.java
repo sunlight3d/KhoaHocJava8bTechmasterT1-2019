@@ -6,22 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import org.apache.commons.validator.routines.EmailValidator;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-
-import static javafx.geometry.HPos.LEFT;
+import javax.xml.crypto.Data;
 
 public class ProductListScene extends Scene {
     private TableView<Product> tableView = new TableView<Product>();
@@ -53,7 +49,7 @@ public class ProductListScene extends Scene {
                     //Double click
                     if(event.getClickCount() == 2 && !row.isEmpty()) {
                         System.out.println("You double-clicked a row");
-                        showDetailProperty(row.getItem());
+                        showDetailProductScene(row.getItem());
                     } else if(event.getButton() == MouseButton.SECONDARY) {
                         selectedProduct = row.getItem();
                         contextMenu.show(tableView, event.getScreenX(), event.getScreenY());
@@ -104,30 +100,32 @@ public class ProductListScene extends Scene {
         menuItemProperty.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                showDetailProduct(selectedProduct);
+                showDetailProductScene(selectedProduct);
             }
         });
         MenuItem menuItemAddProduct = new MenuItem("Thêm sản phẩm mới");
         menuItemAddProduct.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                showDetailProductScene(null);
             }
         });
         contextMenu.getItems().addAll(menuItemDelete, menuItemProperty, menuItemAddProduct);
     }
-    private void showDetailProduct(Product selectedProduct) {
-        DetailProduct detailProduct = new DetailProduct(selectedProduct,
-                "Detail category");
-        detailProduct.initModality(Modality.APPLICATION_MODAL);
-        detailProduct.setOnHiding(new EventHandler<WindowEvent>() {
+    private void showDetailProductScene(Product selectedProduct) {
+        DetailProductScene detailProductScene = new DetailProductScene(selectedProduct,350,300);
+        final Stage detailProductStage = new Stage();
+        detailProductStage.setScene(detailProductScene);
+        detailProductStage.initModality(Modality.APPLICATION_MODAL);
+        detailProductStage.setOnHiding(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                System.out.println("Detail category is hiding");
-                Database.getInstance().getAllCategories();
+                DataManagement.showDetailProducts(DataManagement.getInstance().getProducts());
+                tableView.setItems(DataManagement.getInstance().getProducts());
+                tableView.refresh();
             }
         });
-        detailProduct.showAndWait();
+        detailProductStage.showAndWait();
     }
 
 }
