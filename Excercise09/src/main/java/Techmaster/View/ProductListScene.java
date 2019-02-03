@@ -19,7 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import javax.xml.crypto.Data;
 
 import static javafx.geometry.HPos.LEFT;
 
