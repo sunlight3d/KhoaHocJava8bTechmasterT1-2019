@@ -10,11 +10,10 @@ import java.util.List;
 
 public class DataManagement {
     //Danh sach cac Product
-    /*
+
     private ObservableList<Product> products
             = FXCollections.observableArrayList();
-    */
-    private List<Product> products = new ArrayList<Product>();
+    //private List<Product> products = new ArrayList<Product>();
     private static DataManagement dataManagement;
     public static DataManagement getInstance() {
         if(dataManagement == null) {
@@ -23,7 +22,7 @@ public class DataManagement {
         }
         return dataManagement;
     }
-    public List<Product> getProducts(){
+    public ObservableList<Product> getProducts(){
         for(Product product: products){
             System.out.println(product.getProductId()+".name: "+
                     product.getProductName()+

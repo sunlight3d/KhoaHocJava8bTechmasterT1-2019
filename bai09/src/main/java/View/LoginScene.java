@@ -71,8 +71,8 @@ public class LoginScene extends Scene{
                             txtEmail.getText()+
                             "\nPassword:"+txtPassword.getText());
                     if(txtEmail.getText().equals("hoang@gmail.com") && txtPassword.getText().equals("12345")) {
-                        //final Stage primaryStage = (Stage) that.getWindow();
-                        //primaryStage.setScene(new ProductListScene(1000,500));
+                        final Stage primaryStage = (Stage) that.getWindow();
+                        primaryStage.setScene(new ProductListScene(1000,500));
                     }
                 } else {
                     infoText.setFill(Color.RED);
